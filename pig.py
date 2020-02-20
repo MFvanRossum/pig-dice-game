@@ -10,11 +10,26 @@ class Game:
         rng = randint(1, 10)
         if rng < 6:
             print("Computer goes first.")
-            self.computer.round()
-
+            while self.computer.computer_score < 100 and self.player.player_score < 100:
+                self.computer.round()
+                self.player.round()
+            if self.computer.computer_score >= 100:
+                print("Computer wins!")
+                return 
+            else: 
+                print("Player wins!")
+                return
         else:
             print("Player goes first.")
-            self.player.round()
+            while self.computer.computer_score < 100 and self.player.player_score < 100:
+                self.player.round()
+                self.computer.round()
+            if self.computer.computer_score >= 100:
+                print("Computer wins!")
+                return
+            else:
+                print("Player wins!")
+                return
 
 class Die:
     def __init__(self):
@@ -54,7 +69,6 @@ class Computer:
             self.computer_score += self.round_score
             print(f"Computer's total score is {self.computer_score}")
 
-
 class Player:
     def __init__(self, name):
         self.name = name 
@@ -65,16 +79,20 @@ class Player:
         return f"{self.name}"
 
     def round(self):
-        choice = input("Do you want to (r)oll or (h)old? ")
+        choice = "r"
         while choice != 'h':
+            choice = input("Do you want to (r)oll or (h)old? ")
             roll = Die().value
             print(f"You rolled {roll}")
-            self.round_score += roll
-            print(f"Your score for this round is {self.round_score}")
-            choice = input("Do you want to (r)oll or (h)old? ")
-        if choice == "h": 
-            self.player_score += self.round_score
-            print(f"Your total score is {self.player_score}")
+            if roll != 1:
+                self.round_score += roll
+                print(f"Your score for this round is {self.round_score}")
+            else:
+                print("Pig!")
+                self.round_score = 0
+                break
+        self.player_score += self.round_score
+        print(f"Your total score is {self.player_score}")
 
 
 game = Game()
