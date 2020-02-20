@@ -4,7 +4,6 @@ class Game:
     def __init__(self):
         self.computer = Computer("Computer")
         self.player = Player("Player")
-        self.die = Die()
 
     def choose_starting_player(self):
         rng = randint(1, 10)
@@ -58,7 +57,7 @@ class Computer:
                 self.round()
                 self.round_score = 0
             else:
-                print("Pig!") 
+                print("You pigged it!") 
                 self.round_score = 0
                 self.computer_score += self.round_score
                 print(f"Computer's total score is {self.computer_score}")
@@ -89,7 +88,7 @@ class Player:
                 self.round_score += roll
                 print(f"Your score for this round is {self.round_score}")
             else:
-                print("Pig!")
+                print("You pigged it!")
                 self.round_score = 0
                 break
         self.player_score += self.round_score
