@@ -56,18 +56,17 @@ class Computer:
                 self.round_score += roll
                 print(f"Round score is {self.round_score}")
                 self.round()
+                self.round_score = 0
             else:
                 print("Pig!") 
                 self.round_score = 0
-                self.computer_score += self.round_score
-                print(f"Computer's total score is {self.computer_score}")
-                print("Computer holds")
                 self.computer_score += self.round_score
                 print(f"Computer's total score is {self.computer_score}")
         else: 
             print("Computer holds")
             self.computer_score += self.round_score
             print(f"Computer's total score is {self.computer_score}")
+            self.round_score = 0
 
 class Player:
     def __init__(self, name):
@@ -82,6 +81,8 @@ class Player:
         choice = "r"
         while choice != 'h':
             choice = input("Do you want to (r)oll or (h)old? ")
+            if choice == 'h':
+                break
             roll = Die().value
             print(f"You rolled {roll}")
             if roll != 1:
@@ -93,6 +94,7 @@ class Player:
                 break
         self.player_score += self.round_score
         print(f"Your total score is {self.player_score}")
+        self.round_score = 0
 
 
 game = Game()
